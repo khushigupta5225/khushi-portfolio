@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode (default). `.dark` on <html> = dark theme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Brand accent — used sparingly for glow / gradient accents */
+  --color-accent: #7c5cff;
+  --color-accent-2: #22d3ee;
+  --color-accent-3: #ff6b9d;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background-color: #08080c;
+    color: #e9e9ee;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html:not(.dark) body {
+    background-color: #fafafa;
+    color: #14141a;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: white;
+  }
+}
+
+@layer utilities {
+  /* Soft radial glow, used behind hero/contact headlines */
+  .glow-surface {
+    position: relative;
+  }
+  .glow-surface::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(
+      circle at 30% 20%,
+      color-mix(in srgb, var(--color-accent) 25%, transparent),
+      transparent 60%
+    );
+    filter: blur(60px);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Neumorphism-inspired raised surface, dark + light variants */
+  .surface {
+    @apply rounded-2xl border;
+    background: color-mix(in srgb, currentColor 4%, transparent);
+    border-color: color-mix(in srgb, currentColor 10%, transparent);
+    box-shadow:
+      0 1px 0 0 color-mix(in srgb, white 4%, transparent) inset,
+      0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--color-accent),
+      var(--color-accent-2) 60%,
+      var(--color-accent-3)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .section-pad {
+    @apply px-6 sm:px-10 lg:px-24 py-16 sm:py-20 lg:py-24;
+  }
+
+  /* Custom sleek scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(124, 92, 255, 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(124, 92, 255, 0.45);
+  }
+
+  /* Focus ring utility */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/10 dark:focus-visible:ring-offset-[#08080c];
+  }
+}
+
