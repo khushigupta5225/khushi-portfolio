@@ -118,14 +118,14 @@ export default function ThreeCanvas() {
     )
     observer.observe(container)
 
-    const clock = new THREE.Clock()
+    const startTime = performance.now()
 
     function animate() {
       animationFrameId = requestAnimationFrame(animate)
 
       if (!isVisible) return
 
-      const elapsedTime = clock.getElapsedTime()
+      const elapsedTime = (performance.now() - startTime) * 0.001
 
       if (!prefersReducedMotion) {
         targetX += (mouseX - targetX) * 0.04

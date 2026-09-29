@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Send, CheckCircle2, Copy, Check } from 'lucide-react'
+import { Send, CheckCircle2, Copy, Check, ArrowLeft, ArrowUp } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
-import WhiskerDivider from '@/components/ui/WhiskerDivider'
 import { profile } from '@/data/profile'
+import { useActiveSection } from '@/context/ActiveSectionContext'
 
 const inputStyles =
-  'w-full rounded-xl border border-black/10 bg-black/[0.02] px-4 py-3.5 text-base text-black placeholder:text-black/35 outline-none transition-colors focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20 dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:placeholder:text-white/35'
+  'w-full rounded-xl border border-black/10 bg-black/[0.02] px-3.5 sm:px-4 py-3 sm:py-3.5 text-base text-black placeholder:text-black/35 outline-none transition-colors focus:border-violet-500/60 focus:ring-2 focus:ring-violet-500/20 dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:placeholder:text-white/35'
 
 export default function Contact() {
+  const { navigateTo } = useActiveSection()
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState('idle') // idle | sending | sent
   const [isTyping, setIsTyping] = useState(false)
@@ -74,23 +75,21 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative overflow-hidden">
-      <WhiskerDivider />
-
       <Container className="relative section-pad">
-        <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+        <div className="mx-auto grid max-w-5xl gap-8 sm:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           {/* Left Column: Headline, Email Card & Desk Cat Companion */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex flex-col justify-start gap-6 text-left"
+            className="flex flex-col justify-start gap-5 sm:gap-6 text-left"
           >
             <div className="flex flex-col gap-2">
               <span className="text-xs font-bold uppercase tracking-widest text-violet-500 dark:text-violet-400">
                 Get In Touch
               </span>
-              <h2 className="text-4xl font-bold tracking-tight text-black sm:text-5xl dark:text-white">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black dark:text-white">
                 Let&apos;s build something great.
               </h2>
             </div>
@@ -216,7 +215,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="surface relative overflow-hidden rounded-3xl p-6 sm:p-8"
+            className="surface relative overflow-hidden rounded-3xl p-5 sm:p-8"
           >
             <AnimatePresence mode="wait">
               {status === 'sent' ? (
@@ -332,6 +331,27 @@ export default function Contact() {
               )}
             </AnimatePresence>
           </motion.div>
+        </div>
+
+        {/* Navigation Stepper between sections */}
+        <div className="mt-12 sm:mt-16 flex items-center justify-between border-t border-black/10 dark:border-white/10 pt-6 sm:pt-8 gap-2">
+          <button
+            type="button"
+            onClick={() => navigateTo('projects')}
+            className="text-xs font-semibold text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 focus-ring rounded-full px-3 py-1.5 whitespace-nowrap"
+          >
+            <ArrowLeft size={14} />
+            <span>Featured Projects</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigateTo('hero')}
+            className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-violet-600 hover:bg-violet-500 text-white px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold shadow-md transition-all duration-200 hover:scale-105 focus-ring whitespace-nowrap"
+          >
+            <span>Back to Home 🐾</span>
+            <ArrowUp size={15} />
+          </button>
         </div>
       </Container>
     </section>

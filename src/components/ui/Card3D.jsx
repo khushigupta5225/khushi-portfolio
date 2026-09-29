@@ -39,6 +39,7 @@ export default function Card3D({
   const glareBackground = useMotionTemplate`radial-gradient(circle 360px at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.28), transparent 70%)`
 
   function handleMouseMove(e) {
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return
     if (!ref.current) return
     const rect = ref.current.getBoundingClientRect()
     const width = rect.width
@@ -53,6 +54,7 @@ export default function Card3D({
   }
 
   function handleMouseEnter() {
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return
     setIsHovered(true)
   }
 

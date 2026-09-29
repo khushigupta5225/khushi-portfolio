@@ -8,7 +8,7 @@ import CatPreloader from '@/components/ui/CatPreloader'
 
 export default function Layout() {
   return (
-    <div className="relative min-h-screen bg-white text-black dark:bg-[#08080c] dark:text-white overflow-hidden selection:bg-violet-500 selection:text-white">
+    <div className="relative min-h-screen bg-white text-black dark:bg-[#08080c] dark:text-white overflow-x-clip selection:bg-violet-500 selection:text-white">
       {/* 1.2s Fast Cat Preloader (initial visit only) */}
       <CatPreloader />
 
@@ -24,7 +24,7 @@ export default function Layout() {
       {/* Fixed Header Navbar with Active Cat-Paw Indicator */}
       <Navbar />
 
-      <main className="relative z-10 pt-16">
+      <main className="relative z-10 pt-16 sm:pt-20">
         <Outlet />
       </main>
 

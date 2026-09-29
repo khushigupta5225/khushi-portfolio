@@ -8,12 +8,14 @@ import {
   Download,
   CheckCircle2,
   ExternalLink,
+  ArrowRight,
+  ArrowLeft,
 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Card3D from '@/components/ui/Card3D'
-import WhiskerDivider from '@/components/ui/WhiskerDivider'
 import { profile } from '@/data/profile'
+import { useActiveSection } from '@/context/ActiveSectionContext'
 
 const TABS = [
   { id: 'story', label: 'Background', icon: GraduationCap },
@@ -22,6 +24,7 @@ const TABS = [
 ]
 
 export default function About() {
+  const { navigateTo } = useActiveSection()
   const [activeTab, setActiveTab] = useState('story')
   const [imageError, setImageError] = useState(false)
 
@@ -31,8 +34,6 @@ export default function About() {
 
   return (
     <section id="about" className="relative overflow-hidden">
-      <WhiskerDivider />
-
       <Container className="relative section-pad">
         <SectionHeading
           eyebrow="Profile"
@@ -40,14 +41,14 @@ export default function About() {
           subtitle="A glimpse into my journey so far."
         />
 
-        <div className="mt-14 grid items-center gap-12 md:grid-cols-[minmax(0,340px)_1fr] lg:gap-16">
+        <div className="mt-10 sm:mt-14 grid items-center gap-8 md:grid-cols-[minmax(0,280px)_1fr] lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-16">
           {/* Left: 3D Photo Card with subtle cat-ear silhouette header */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto w-full max-w-[320px] md:mx-0"
+            className="relative mx-auto w-full max-w-[270px] sm:max-w-[320px] md:mx-0"
           >
             {/* Soft accent glow behind the photo */}
             <div
@@ -112,7 +113,7 @@ export default function About() {
             className="flex flex-col gap-6"
           >
             {/* Category Selector Tabs */}
-            <div className="flex items-center gap-2 border-b border-black/10 dark:border-white/10 pb-3 overflow-x-auto no-scrollbar">
+            <div className="flex items-center gap-1.5 sm:gap-2 border-b border-black/10 dark:border-white/10 pb-3 overflow-x-auto no-scrollbar">
               {TABS.map((tab) => {
                 const Icon = tab.icon
                 const isActive = activeTab === tab.id
@@ -121,7 +122,7 @@ export default function About() {
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 whitespace-nowrap focus-ring ${
+                    className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 whitespace-nowrap focus-ring ${
                       isActive
                         ? 'bg-violet-600 text-white shadow-md'
                         : 'text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
@@ -187,7 +188,7 @@ export default function About() {
                         className="p-5 rounded-2xl border border-violet-500/20 bg-violet-500/5 flex flex-col gap-3"
                       >
                         {/* Header Row: Company/Role on left, Period badge & Open PDF on top right */}
-                        <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                           <div>
                             <h4 className="text-base font-bold text-black dark:text-white">
                               {exp.company} — {exp.role}
@@ -198,7 +199,7 @@ export default function About() {
                           </div>
 
                           {/* Top Right Corner Controls */}
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-violet-500/15 text-violet-400 border border-violet-500/30">
                               {exp.period}
                             </span>
@@ -273,6 +274,27 @@ export default function About() {
               </AnimatePresence>
             </div>
           </motion.div>
+        </div>
+
+        {/* Navigation Stepper between sections */}
+        <div className="mt-12 sm:mt-16 flex items-center justify-between border-t border-black/10 dark:border-white/10 pt-6 sm:pt-8 gap-2">
+          <button
+            type="button"
+            onClick={() => navigateTo('hero')}
+            className="text-xs font-semibold text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 focus-ring rounded-full px-3 py-1.5 whitespace-nowrap"
+          >
+            <ArrowLeft size={14} />
+            <span>Home</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigateTo('tech-stack')}
+            className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-violet-600 hover:bg-violet-500 text-white px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold shadow-md transition-all duration-200 hover:scale-105 focus-ring whitespace-nowrap"
+          >
+            <span>Next: Technical Skills</span>
+            <ArrowRight size={15} />
+          </button>
         </div>
       </Container>
     </section>

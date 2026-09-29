@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { motion, wrap } from 'framer-motion'
-import { ChevronLeft, ChevronRight, ArrowUpRight, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ArrowUpRight, Sparkles, ArrowRight, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from '@/components/ui/Container'
 import SectionHeading from '@/components/ui/SectionHeading'
 import ProjectCard from '@/components/ui/ProjectCard'
 import ProjectModal from '@/components/ui/ProjectModal'
-import WhiskerDivider from '@/components/ui/WhiskerDivider'
 import { projects } from '@/data/projects'
+import { useActiveSection } from '@/context/ActiveSectionContext'
 
 /**
  * ProjectsPreview: True Infinite Loop Showcase:
@@ -19,6 +19,7 @@ import { projects } from '@/data/projects'
  * - Interactive segmented pills & touch-drag swipe support.
  */
 export default function ProjectsPreview() {
+  const { navigateTo } = useActiveSection()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProject, setSelectedProject] = useState(null)
   const [dimensions, setDimensions] = useState({ cardWidth: 400, gap: 24 })
@@ -27,8 +28,10 @@ export default function ProjectsPreview() {
   useEffect(() => {
     function updateDimensions() {
       const width = window.innerWidth
-      if (width < 640) {
-        setDimensions({ cardWidth: Math.min(310, width - 44), gap: 16 })
+      if (width < 420) {
+        setDimensions({ cardWidth: Math.min(290, width - 36), gap: 12 })
+      } else if (width < 640) {
+        setDimensions({ cardWidth: Math.min(320, width - 48), gap: 16 })
       } else if (width < 1024) {
         setDimensions({ cardWidth: 350, gap: 20 })
       } else {
@@ -66,11 +69,9 @@ export default function ProjectsPreview() {
   const visibleOffsets = [-3, -2, -1, 0, 1, 2, 3]
 
   return (
-    <section id="projects" className="relative overflow-hidden py-8 sm:py-12">
-      <WhiskerDivider />
-
+    <section id="projects" className="relative overflow-hidden py-6 sm:py-10">
       {/* Header: Personal to Khushi's Developer Portfolio */}
-      <Container className="px-6 sm:px-10 lg:px-24 pt-12 sm:pt-16 pb-2">
+      <Container className="px-4 sm:px-8 lg:px-16 pt-2 sm:pt-4 pb-2">
         <SectionHeading
           eyebrow="MY WORK"
           title="My Featured Projects"
@@ -93,7 +94,7 @@ export default function ProjectsPreview() {
               handlePrev()
             }
           }}
-          className="relative w-full h-[510px] sm:h-[530px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
+          className="relative w-full h-[470px] xs:h-[490px] sm:h-[530px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none touch-pan-y"
         >
           {/* Centered Anchor for the Floating Cards */}
           <div className="relative w-0 h-full flex items-center justify-center">
@@ -207,6 +208,27 @@ export default function ProjectsPreview() {
             <span>View All Detailed Architecture & Specs</span>
             <ArrowUpRight size={14} />
           </Link>
+        </div>
+
+        {/* Navigation Stepper between sections */}
+        <div className="mt-12 sm:mt-16 flex items-center justify-between border-t border-black/10 dark:border-white/10 pt-6 sm:pt-8 gap-2">
+          <button
+            type="button"
+            onClick={() => navigateTo('tech-stack')}
+            className="text-xs font-semibold text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 focus-ring rounded-full px-3 py-1.5 whitespace-nowrap"
+          >
+            <ArrowLeft size={14} />
+            <span>Technical Skills</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigateTo('contact')}
+            className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-violet-600 hover:bg-violet-500 text-white px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold shadow-md transition-all duration-200 hover:scale-105 focus-ring whitespace-nowrap"
+          >
+            <span>Next: Get in Touch</span>
+            <ArrowRight size={15} />
+          </button>
         </div>
       </Container>
 

@@ -178,8 +178,6 @@ export default function InteractiveCatHero({ reactionTarget = null }) {
 
       {/* SVG Vector Interactive Cat Character */}
       <motion.svg
-        width="110"
-        height="110"
         viewBox="0 0 120 120"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +191,7 @@ export default function InteractiveCatHero({ reactionTarget = null }) {
             ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' }
             : { duration: 3.5, repeat: Infinity, ease: 'easeInOut' }
         }
-        className={`transition-shadow duration-300 ${
+        className={`w-[90px] h-[90px] sm:w-[110px] sm:h-[110px] transition-shadow duration-300 ${
           isDragging
             ? 'drop-shadow-[0_16px_32px_rgba(124,92,255,0.45)]'
             : 'drop-shadow-[0_8px_20px_rgba(124,92,255,0.2)]'

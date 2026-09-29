@@ -16,6 +16,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -23,6 +25,10 @@
     background-color: #08080c;
     color: #e9e9ee;
     transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+    -webkit-overflow-scrolling: touch;
   }
 
   html:not(.dark) body {
@@ -37,6 +43,13 @@
   ::selection {
     background: var(--color-accent);
     color: white;
+  }
+
+  /* Hide default OS arrow cursor so only the Cat Paw is visible */
+  @media (pointer: fine) {
+    html, body, *, *::before, *::after {
+      cursor: none !important;
+    }
   }
 }
 
@@ -82,7 +95,16 @@
   }
 
   .section-pad {
-    @apply px-6 sm:px-10 lg:px-24 py-16 sm:py-20 lg:py-24;
+    @apply px-4 sm:px-8 lg:px-16 py-10 sm:py-16 lg:py-20;
+  }
+
+  /* Hide scrollbar utility */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   /* Custom sleek scrollbar */

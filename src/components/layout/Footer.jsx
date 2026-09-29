@@ -12,7 +12,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative overflow-hidden pt-16 sm:pt-20 md:pt-24">
+    <footer className="relative overflow-hidden pt-12 sm:pt-16 md:pt-20">
       {/* Animated 5-Cat Hand-Drawn Scene standing directly on top of the footer line */}
       <CatFooterScene />
 
@@ -20,7 +20,7 @@ export default function Footer() {
       <div className="w-full border-t border-black/10 dark:border-white/10" />
 
       {/* Copyright text, links and back-to-top below the line */}
-      <Container className="flex flex-col items-center gap-6 px-6 py-8 sm:flex-row sm:justify-between sm:px-10 lg:px-20">
+      <Container className="flex flex-col items-center gap-4 sm:gap-6 px-4 py-6 sm:py-8 sm:flex-row sm:justify-between sm:px-8 lg:px-16">
         <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
           <p className="text-xs sm:text-sm text-black/60 dark:text-white/40">
             © {year} {profile.name}. All rights reserved.

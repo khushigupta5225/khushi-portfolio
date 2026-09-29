@@ -20,8 +20,8 @@ export default function Projects() {
   return (
     <PageTransition>
       <section className="relative overflow-hidden section-pad min-h-screen">
-        <Container>
-          <div className="mb-8">
+        <Container className="px-4 sm:px-8 lg:px-16">
+          <div className="mb-6 sm:mb-8">
             <Link
               to="/"
               className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white transition-colors focus-ring rounded"
@@ -41,7 +41,7 @@ export default function Projects() {
             variants={grid}
             initial="hidden"
             animate="show"
-            className="mt-14 grid gap-8 md:grid-cols-2 max-w-6xl mx-auto"
+            className="mt-10 sm:mt-14 grid gap-6 sm:gap-8 md:grid-cols-2 max-w-6xl mx-auto"
           >
             {projects.map((project) => (
               <ProjectCard

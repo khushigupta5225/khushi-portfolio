@@ -216,13 +216,18 @@ export default function CatFooterScene() {
     return () => cancelAnimationFrame(animId)
   }, [shouldReduceMotion])
 
-  // Guaranteed safe spacing math for 5 cats - generous margin ensures bubbles never clip
-  const margin = Math.max(70, Math.min(120, stageWidth * 0.1))
-  const usableWidth = Math.max(260, stageWidth - margin * 2)
+  // Guaranteed safe spacing math for 5 cats - responsive for mobile, tablet & desktop
+  const isMobile = stageWidth < 640
+  const margin = isMobile
+    ? Math.max(18, Math.min(40, stageWidth * 0.05))
+    : Math.max(70, Math.min(120, stageWidth * 0.1))
+  const usableWidth = Math.max(180, stageWidth - margin * 2)
   // Distance between each of the 5 cats (4 intervals)
-  const gap = Math.max(48, Math.min(130, usableWidth * 0.15))
+  const gap = isMobile
+    ? Math.max(30, Math.min(55, (usableWidth - 20) / 4.2))
+    : Math.max(48, Math.min(130, usableWidth * 0.15))
   const packSpan = 4 * gap
-  const travelSpan = Math.max(30, usableWidth - packSpan)
+  const travelSpan = Math.max(15, usableWidth - packSpan)
 
   // Positions along the line (strictly ordered Cat 1 > Cat 2 > Cat 3 > Cat 4 > Cat 5)
   const xCat1 = margin + 4 * gap + scene.walkProgress * travelSpan
@@ -325,8 +330,9 @@ export default function CatFooterScene() {
         style={{
           transformStyle: 'preserve-3d',
           transform: shouldReduceMotion
-            ? 'none'
-            : `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
+            ? (isMobile ? 'scale(0.82)' : 'none')
+            : `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg) ${isMobile ? 'scale(0.82)' : ''}`,
+          transformOrigin: 'bottom center',
           transition: 'transform 0.1s ease-out',
         }}
       >
