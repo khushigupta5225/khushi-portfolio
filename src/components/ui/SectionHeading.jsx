@@ -13,14 +13,14 @@ export default function SectionHeading({ eyebrow, title, subtitle, align = 'left
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`flex flex-col gap-3 ${alignment} max-w-2xl`}
+      className={`flex flex-col gap-2.5 sm:gap-3 ${alignment} max-w-2xl min-w-0 w-full`}
     >
       {eyebrow && (
-        <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
           {eyebrow}
         </span>
       )}
-      <h2 className="text-4xl sm:text-5xl font-semibold text-black dark:text-white">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-black dark:text-white">
         {title}
       </h2>
       {subtitle && (
